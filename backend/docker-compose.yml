@@ -1,0 +1,76 @@
+version: '3.8'
+
+services:
+  # Service API
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: presence-management-api
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - NODE_ENV=development
+      - PORT=5000
+      - MONGODB_URI=mongodb://mongo:27017/presence-management
+      - JWT_SECRET=${JWT_SECRET}
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
+    networks:
+      - presence-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/healthcheck"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Service MongoDB
+  mongo:
+    image: mongo:5.0
+    container_name: presence-management-mongo
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME:-root}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD:-example}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE:-presence-management}
+    volumes:
+      - mongodb_data:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - presence-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "'db.runCommand({ ping: 1 }).ok'" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Interface d'administration MongoDB (optionnel)
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    restart: unless-stopped
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongo
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_INITDB_ROOT_USERNAME:-root}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_INITDB_ROOT_PASSWORD:-example}
+      ME_CONFIG_BASICAUTH_USERNAME: ${MONGO_EXPRESS_USERNAME:-admin}
+      ME_CONFIG_BASICAUTH_PASSWORD: ${MONGO_EXPRESS_PASSWORD:-password}
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mongo
+    networks:
+      - presence-network
+
+# Volumes pour la persistance des données
+volumes:
+  mongodb_data:
+
+# Réseau pour la communication entre les services
+networks:
+  presence-network:
+    driver: bridge
