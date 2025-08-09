@@ -49,12 +49,12 @@ const users = [
   // Secrétaire
   {
     prenom: 'Sophie',
-    nom: 'Leroy',
-    email: 'sophie.leroy@clinique.com',
+    nom: 'Bernard',
+    email: 'sophie.bernard@clinique.com',
     telephone: '771234570',
-    role: 'secretaire',
+    role: 'infirmier',
     actif: true,
-    password: 'Secretaire123!',
+    password: 'Infirmier456!',
     specialite: 'Accueil',
     status: 'en_service'
   },
