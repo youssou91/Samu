@@ -1,19 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const rendezVousController = require('../controllers/rendezVousController');
+const auth = require('../middleware/auth');
+const roleAuth = require('../middleware/roleAuth');
 
-// Routes pour les rendez-vous
-router.route('/')
-  .post(rendezVousController.createRendezVous)
-  .get(rendezVousController.getAllRendezVous);
-
-router.route('/:id')
-  .get(rendezVousController.getRendezVous)
-  .patch(rendezVousController.updateRendezVous)
-  .delete(rendezVousController.deleteRendezVous);
-
-// Routes pour les rendez-vous par patient/médecin
-router.get('/patient/:patientId', rendezVousController.getRendezVousByPatient);
-router.get('/medecin/:medecinId', rendezVousController.getRendezVousByMedecin);
+router.post('/', auth, roleAuth(['admin', 'medecin', 'secretaire']), rendezVousController.createRendezVous);
+router.get('/', rendezVousController.getRendezVous);
+router.get('/:id', rendezVousController.getRendezVousById);
+router.put('/:id', auth, roleAuth(['admin', 'medecin', 'secretaire']), rendezVousController.updateRendezVous);
+router.delete('/:id', auth, roleAuth(['admin', 'medecin', 'secretaire']), rendezVousController.deleteRendezVous);
 
 module.exports = router;

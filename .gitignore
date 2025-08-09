@@ -1,0 +1,10 @@
+# Dossiers node_modules à ignorer
+node_modules/  # pour la racine (si jamais il y en a un)
+frontend/node_modules/
+backend/node_modules/
+
+# Autres fichiers/dossiers à ignorer (optionnel)
+.env
+.DS_Store
+dist/
+*.log
