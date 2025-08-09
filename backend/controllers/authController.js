@@ -54,7 +54,9 @@ exports.login = async (req, res) => {
         email: user.email, 
         role: user.role,
         prenom: user.prenom,
-        nom: user.nom
+        nom: user.nom,
+        iat: Math.floor(Date.now() / 1000),
+        exp: Math.floor(Date.now() / 1000) + (12 * 60 * 60) // 12 heures
       }, 
       process.env.JWT_SECRET || 'votre_secret_jwt',
       { 
