@@ -1,0 +1,132 @@
+/* Styles pour les modales larges */
+.modal-90w {
+  max-width: 90% !important;
+  margin: 1.75rem auto;
+}
+
+@media (min-width: 1200px) {
+  .modal-90w {
+    max-width: 1100px !important;
+  }
+}
+
+/* Masquer les flèches des menus déroulants */
+.navbar .dropdown-toggle::after {
+  display: none !important;
+}
+
+/* Styles généraux */
+body {
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* En-tête */
+.navbar {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.navbar-brand {
+  font-weight: 600;
+}
+
+/* Tableau de bord */
+.stats-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease-in-out;
+  margin-bottom: 1.5rem;
+  border: none;
+}
+
+.stats-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.stats-card .card-body {
+  padding: 1.5rem;
+}
+
+.stats-card .card-title {
+  color: #6c757d;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+}
+
+.stats-card .card-value {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin: 0.5rem 0;
+}
+
+/* Tableau */
+.table-container {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.table {
+  margin-bottom: 0;
+}
+
+.table thead th {
+  border-top: none;
+  border-bottom: 1px solid #dee2e6;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+  color: #6c757d;
+}
+
+/* Formulaire de connexion */
+.login-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 5rem;
+}
+
+.login-logo {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.login-logo img {
+  max-width: 120px;
+  height: auto;
+}
+
+/* Boutons */
+.btn-primary {
+  padding: 0.5rem 1.5rem;
+  font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .stats-card {
+    margin-bottom: 1rem;
+  }
+  
+  .table-container {
+    padding: 1rem;
+    overflow-x: auto;
+  }
+}
